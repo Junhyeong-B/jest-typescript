@@ -57,31 +57,39 @@ describe("Utils test suite", () => {
   describe("StringUtils tests", () => {
     let suite: StringUtils;
 
-    beforeAll(() => {
-      console.log("모든 테스트가 시작되기 전 실행");
-    });
-
     beforeEach(() => {
       suite = new StringUtils();
-      console.log("각 테스트가 시작되기 전 실행");
-    });
-
-    afterEach(() => {
-      // clearing mocks
-      console.log("각 테스트가 끝난 후 실행");
-    });
-
-    afterAll(() => {
-      console.log("모든 테스트가 끝난 후 실행");
     });
 
     it("should return correct upper case", () => {
-      // const suite = new StringUtils();
-
       const actual = suite.toUpperCase("abc");
-
       expect(actual).toBe("ABC");
-      console.log("Actual test");
+    });
+
+    it("should throw error on invalid argument - function", () => {
+      function expectError() {
+        const actual = suite.toUpperCase("");
+      }
+
+      expect(expectError).toThrow();
+      expect(expectError).toThrowError("Invalid argument!");
+    });
+
+    it("should throw error on invalid argument - arrow function", () => {
+      expect(() => {
+        suite.toUpperCase("");
+      }).toThrow();
+    });
+
+    it("should throw error on invalid argument - try catch block", (done) => {
+      try {
+        suite.toUpperCase("");
+        done("GetStringInfo should throw error for invalid arg!");
+      } catch (error) {
+        expect(error).toBeInstanceOf(Error);
+        expect(error).toHaveProperty("message", "Invalid argument!");
+        done();
+      }
     });
   });
 });
