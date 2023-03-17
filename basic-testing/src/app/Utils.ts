@@ -19,3 +19,9 @@ export function getStringInfo(arg: string): StringInfo {
     extraInfo: {},
   };
 }
+
+export class StringUtils {
+  public toUpperCase(arg: string) {
+    return toUpperCase(arg);
+  }
+}

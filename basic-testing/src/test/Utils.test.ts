@@ -1,3 +1,4 @@
+import { StringUtils } from "./../app/Utils";
 import { getStringInfo, toUpperCase } from "../app/Utils";
 
 describe("Utils test suite", () => {
@@ -13,7 +14,7 @@ describe("Utils test suite", () => {
     expect(actual).toBe(expected);
   });
 
-  describe.only("toUpperCase examples", () => {
+  describe("toUpperCase examples", () => {
     it.each([
       { input: "abc", expected: "ABC" },
       { input: "My-String", expected: "MY-STRING" },
@@ -50,6 +51,37 @@ describe("Utils test suite", () => {
     test("return right extra info", () => {
       const actual = getStringInfo("My-String");
       expect(actual.extraInfo).toEqual({});
+    });
+  });
+
+  describe("StringUtils tests", () => {
+    let suite: StringUtils;
+
+    beforeAll(() => {
+      console.log("모든 테스트가 시작되기 전 실행");
+    });
+
+    beforeEach(() => {
+      suite = new StringUtils();
+      console.log("각 테스트가 시작되기 전 실행");
+    });
+
+    afterEach(() => {
+      // clearing mocks
+      console.log("각 테스트가 끝난 후 실행");
+    });
+
+    afterAll(() => {
+      console.log("모든 테스트가 끝난 후 실행");
+    });
+
+    it("should return correct upper case", () => {
+      // const suite = new StringUtils();
+
+      const actual = suite.toUpperCase("abc");
+
+      expect(actual).toBe("ABC");
+      console.log("Actual test");
     });
   });
 });
