@@ -1,3 +1,5 @@
+import { v4 } from "uuid";
+
 export type StringInfo = {
   lowerCase: string;
   upperCase: string;
@@ -29,7 +31,7 @@ export function toUpperCaseWithCb(
 }
 
 export class OtherStringUtils {
-  private callExternalService() {
+  public callExternalService() {
     console.log("Calling external service!!!");
   }
 
@@ -40,4 +42,12 @@ export class OtherStringUtils {
   public logString(arg: string) {
     console.log(arg);
   }
+}
+
+export function toUpperCase(arg: string) {
+  return arg.toUpperCase();
+}
+
+export function toLowerCaseWithId(arg: string) {
+  return arg.toLowerCase() + v4();
 }

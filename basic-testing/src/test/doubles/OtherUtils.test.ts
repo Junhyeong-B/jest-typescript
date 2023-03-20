@@ -75,7 +75,7 @@ describe("OtherUtils 테스트", () => {
     });
   });
 
-  describe.only("OtherSTringUtils test with spies", () => {
+  describe("OtherSTringUtils test with spies", () => {
     let suite: OtherStringUtils;
     beforeEach(() => {
       suite = new OtherStringUtils();
