@@ -1,5 +1,6 @@
 import {
   calculateComplexity,
+  OtherStringUtils,
   toUpperCaseWithCb,
 } from "../../app/doubles/OtherUtils";
 
@@ -62,15 +63,41 @@ describe("OtherUtils 테스트", () => {
     test("calls callback for invalid argument - track calls", () => {
       const actual = toUpperCaseWithCb("", callbackMock);
       expect(actual).toBeUndefined();
-      expect(callbackMock).toBeCalledWith("Invalid argument!");
+      expect(callbackMock).toHaveBeenCalledWith("Invalid argument!");
       expect(callbackMock).toBeCalledTimes(1);
     });
 
     test("calls callback for invalid argument - track calls", () => {
       const actual = toUpperCaseWithCb("abc", callbackMock);
       expect(actual).toBe("ABC");
-      expect(callbackMock).toBeCalledWith("called function with abc");
+      expect(callbackMock).toHaveBeenCalledWith("called function with abc");
       expect(callbackMock).toBeCalledTimes(1);
+    });
+  });
+
+  describe.only("OtherSTringUtils test with spies", () => {
+    let suite: OtherStringUtils;
+    beforeEach(() => {
+      suite = new OtherStringUtils();
+    });
+
+    test("Use a spy to track calls", () => {
+      const toUpperCaseSpy = jest.spyOn(suite, "toUpperCase");
+      suite.toUpperCase("asa");
+      expect(toUpperCaseSpy).toBeCalledWith("asa");
+    });
+
+    test("Use a spy to track calls to other module", () => {
+      const consoleLogSpy = jest.spyOn(console, "log");
+      suite.logString("asa");
+      expect(consoleLogSpy).toBeCalledWith("asa");
+    });
+
+    test("Use a spy to replace the implementation of a method", () => {
+      jest.spyOn(suite, "callExternalService").mockImplementation(() => {
+        console.log("calling mocked implementation!");
+      });
+      suite.callExternalService();
     });
   });
 });
