@@ -1,5 +1,7 @@
 import { generateRandomId } from "./IdGenerator";
 
+type ValueOf<T> = T[keyof T];
+
 type ObjectWithId = {
   id: string;
 };
@@ -13,15 +15,15 @@ export class DataBase<T extends ObjectWithId> {
     return arg.id;
   }
 
-  public async getBy(argName: string, argValue: string) {
+  public async getBy(argName: keyof T, argValue: T[keyof T]) {
     return this.elements.find((x) => x[argName] === argValue);
   }
 
-  public async findAllBy(argName: string, argValue: string) {
+  public async findAllBy(argName: keyof T, argValue: T[keyof T]) {
     return this.elements.filter((x) => x[argName] === argValue);
   }
 
-  public async update(id: string, argName: string, argValue: any) {
+  public async update(id: string, argName: keyof T, argValue: T[keyof T]) {
     const index = this.elements.findIndex((x) => x.id === id);
     this.elements[index][argName] = argValue;
   }
