@@ -1,8 +1,8 @@
 import { HTTP_CODES } from "./../../../app/server_app/model/ServerModel";
 
-export class ReqeustTestWrapper {
+export class ResponseTestWrapper {
   public statusCode: HTTP_CODES;
-  public headers: object[];
+  public headers = new Array<object>([]);
   public body: object;
 
   public writeHead(statusCode: HTTP_CODES, headers: object) {
